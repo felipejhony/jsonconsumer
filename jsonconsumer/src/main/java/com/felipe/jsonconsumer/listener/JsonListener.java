@@ -14,7 +14,7 @@ import static java.lang.Thread.sleep;
 public class JsonListener {
 
     @SneakyThrows
-    @KafkaListener(topics = "payment-topic", groupId = "create-group", containerFactory = "jsonConsumerFactory")
+    @KafkaListener(topics = "payment-topic", groupId = "create-group", containerFactory = "jsonContainerFactory")
     public void antiFraud(@Payload Payment payment){
         log.info("Recebi o pagamento {}", payment.toString());
         sleep(2000);
@@ -27,14 +27,14 @@ public class JsonListener {
     }
 
     @SneakyThrows
-    @KafkaListener(topics = "payment-topic", groupId = "pdf-group", containerFactory = "jsonConsumerFactory")
+    @KafkaListener(topics = "payment-topic", groupId = "pdf-group", containerFactory = "jsonContainerFactory")
     public void pdfGenerator(@Payload Payment payment){
         log.info("Gerando pdf do produto de it {}...", payment.getIdProduct());
         sleep(3000);
     }
 
     @SneakyThrows
-    @KafkaListener(topics = "payment-topic", groupId = "email-group", containerFactory = "jsonConsumerFactory")
+    @KafkaListener(topics = "payment-topic", groupId = "email-group", containerFactory = "jsonContainerFactory")
     public void sendEmail(){
         log.info("Enviando email de confirmacao...");
     }
